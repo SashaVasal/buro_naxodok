@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+   <nav > <!-- navbar content here  --> 
+  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </nav>
+
+  <ul id="slide-out" class="sidenav">
+        <div class="row">
+            <a href="index.html" class="col s12 center-align " style=" margin-top:5%">Главная страница</a>
+        </div>
+        <div class="row">
+            <a href="found.html" class="col s6 center-align " style="margin-top:5%">Найдено</a>
+            <a href="lost.html" class="col s6 center-align " style="margin-top:5%">Потеряно</a>
+        </div>
+        <div class="row">
+            <a href="addPost.html" class="col s12 center-align " style="margin-top:5%">Добавить объявление</a>
+            
+        </div>
+        <div class="row">
+            <a href="SeePost.html" class="col s12 center-align " style="margin-top:5%">Посмотреть объявление</a>
+            
+        </div>
+
+    </ul>
+   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    
+    <script>
+        
+    //document.addEventListener('DOMContentLoaded', function() {
+    //var elems = document.querySelectorAll('.sidenav');
+   // var instances = M.Sidenav.init(elems, options);
+  //});
+
+  // Initialize collapsible (uncomment the lines below if you use the dropdown variation)
+  // var collapsibleElem = document.querySelector('.collapsible');
+  // var collapsibleInstance = M.Collapsible.init(collapsibleElem, options);
+
+  // Or with jQuery
+
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+   
+        
+    $.ajax({
+                url:"http://127.0.0.1:8000/found",
+                success:function(arg){
+                    for(var i = 0;i<arg.length;i++){
+                        
+                        var div_row = document.createElement("div");
+                        document.body.appendChild(div_row);
+                        div_row.classList.add("row");
+                        
+                        var div_col = document.createElement("div");
+                        div_row.appendChild(div_col);
+                        div_col.classList.add("row","s12","m6");
+                        
+                        var div_card = document.createElement("div");
+                        div_row.appendChild(div_card);
+                        div_card.classList.add("card","blue-grey","darken-1");
+                        
+                        var div_card_content = document.createElement("div");
+                        div_card.appendChild(div_card_content);
+                        div_card_content.classList.add("card-content","white-text");
+                       // div_card_content.innerHTML = arg[i].title;
+                        
+                        var span = document.createElement("span");
+                        div_card_content.appendChild(span);
+                        span.classList.add("card-title");
+                        span.innerHTML= arg[i].title;
+                        
+                        var p = document.createElement("p");
+                        div_card_content.appendChild(p);
+                        p.innerHTML =arg[i].description;
+                        
+                        var p1 = document.createElement("p");
+                        div_card_content.appendChild(p1);
+                        //p1.innerHTML =arg[i].contact;
+                        
+                        div_link = document.createElement("div");
+                        div_card_content.appendChild(div_link);
+                        div_link.classList.add("card-action");
+                         
+                        a1 = document.createElement("a");
+                        div_link.appendChild(a1);
+                        //a.classList("")
+                        a1.innerHTML = arg[i].contact;
+                        
+                    }
+                    //console.log(arg);
+                }})
+    </script>
+</body>
+</html>
